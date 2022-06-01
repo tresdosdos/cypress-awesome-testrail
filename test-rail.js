@@ -23,7 +23,7 @@ class TestRail {
     }
 
     addResult(caseId, type) {
-        return this.apiClient.post(`add_result_for_case/${this.options.id}/${caseId}`, {
+        return this.apiClient.post(`add_result_for_case/${this.options.testRunId}/${caseId}`, {
             status_id: this.statuses[type],
         })
     }

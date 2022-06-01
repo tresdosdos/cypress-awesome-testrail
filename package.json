@@ -4,5 +4,28 @@
     "axios": "^0.27.2",
     "form-data": "^4.0.0",
     "mocha": "^10.0.0"
-  }
+  },
+  "description": "``` {   \"reporter\": \"cypress-awesome-testrail\",   \"reporterOptions\": {     \"username\": email,     \"password\": password or api key,     \"domain\": \"https://yourdomain.testrail.io\",     \"suiteId\": your suite id,     \"projectId\": your project id   } } ```",
+  "version": "1.0.3",
+  "main": "index.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "cypress run"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tresdosdos/cypress-awesome-testrail.git"
+  },
+  "keywords": [
+    "cypress",
+    "testrail",
+    "mocha",
+    "reporter"
+  ],
+  "author": "Vitali Dziachuk",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tresdosdos/cypress-awesome-testrail/issues"
+  },
+  "homepage": "https://github.com/tresdosdos/cypress-awesome-testrail#readme"
 }

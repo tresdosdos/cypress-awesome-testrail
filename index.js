@@ -15,7 +15,6 @@ class MyReporter {
     screenshotsFolder = 'cypress/screenshots/';
     apiUrl = '';
     options = {};
-    currentTestRun = {};
 
     get authHeader() {
         return 'Basic ' + Buffer.from(this.options.username + ":" + this.options.password).toString('base64');
@@ -32,7 +31,7 @@ class MyReporter {
     }
 
     get testRail() {
-        return new TestRail(this.apiClient, { ...this.options, ...this.currentTestRun });
+        return new TestRail(this.apiClient, this.options);
     }
 
     constructor(runner, options) {
@@ -41,10 +40,6 @@ class MyReporter {
         runner
             .once(EVENT_RUN_BEGIN, async () => {
                 this.apiUrl = `${this.options.domain}/index.php?/api/v2/`;
-
-                const { data } = await this.testRail.createTestRun();
-
-                this.currentTestRun = data;
             })
             .on(EVENT_TEST_PASS, async test => {
                 await this.testRail.addResult(this.getCaseId(test), 'pass');
@@ -56,8 +51,8 @@ class MyReporter {
                 const pathToAttachment = `${filePath}/${parentTitle} -- ${title} (failed).png`;
                 const caseId = this.getCaseId(test);
                 await this.testRail.addResult(caseId, 'fail');
-                const res = await this.testRail.getCaseResults(this.currentTestRun.id, caseId)
-                await this.testRail.addAttachment(res.data.results[0].id, fs.createReadStream(path.join(__dirname, `../${this.screenshotsFolder}${pathToAttachment}`)));
+                const res = await this.testRail.getCaseResults(this.options.testRunId, caseId)
+                await this.testRail.addAttachment(res.data.results[0].id, fs.createReadStream(path.join(__dirname, `../../${this.screenshotsFolder}${pathToAttachment}`)));
             })
     }
 
